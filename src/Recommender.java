@@ -70,7 +70,7 @@ Recommender
 		// Integer q : movie to be predicted if it would be recommended or not
 		// recommend based on support2
 		if (predictPair(profile, q) == 1)
-			return 1 ;
+			return 1;
 		// if it's not recommendable, take another look for support3
 		return predictTriple(profile, q) ;
 	}

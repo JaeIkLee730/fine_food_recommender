@@ -111,9 +111,6 @@ class Main
 	{
 		int [][] error = new int[2][2] ; // actual x predict -> # 	
 
-		int userIdIndex = data.getUserIdIndex() ;
-		int productIdIndex = data.getProductIdIndex() ;
-
 		TreeMap<Integer, HashSet<Integer>> 
 		users = new TreeMap<Integer, HashSet<Integer>>();
 		// users : a kind of Basket
@@ -127,32 +124,31 @@ class Main
 		// negative answer : actually the User didn't like
 
 	    HashMap<String, Integer>
-   	 	userIdString  = new HashMap<String, Integer>() ;
+   	 	userIdString  = new HashMap<String, Integer>( data.getUserIdString() ) ;
     	HashMap<String, Integer>
-    	productIdString = new HashMap<String, Integer>() ;
+    	productIdString = new HashMap<String, Integer>( data.getProductIdString() ) ;
+
+		int userIdIndex = data.getUserIdIndex() ;
+		int productIdIndex = data.getProductIdIndex() ;
 
 		for (CSVRecord r : CSVFormat.newFormat(',').parse(ftest)) {
 			// read through test data into table format
 
 			Integer user, movie ;			
 
-            if( data.getUserIdString().containsKey(r.get(0)) )
-				user = data.getUserIdString().get( r.get(0) ) ;
-            else if( userIdString.containsKey(r.get(0)) ) 
+            if( userIdString.containsKey(r.get(0)) )
                 user = userIdString.get( r.get(0) ) ;
-			else {
-				user = userIdIndex++ ;
-				userIdString.put( r.get(0), user ) ;
-			}
-				
-			if( data.getProductIdString().containsKey(r.get(1)) )
-				movie = data.getProductIdString().get( r.get(1) ) ;
-			else if( productIdString.containsKey(r.get(1)) )
-				movie = productIdString.get( r.get(1) ) ;
-			else{
-				movie = productIdIndex++ ;
-				productIdString.put( r.get(1), movie ) ;
-			}
+            else {
+                user = userIdIndex++ ; // converted UserId
+                userIdString.put( r.get(0), user ) ;
+            }
+   
+            if( productIdString.containsKey(r.get(1)) )
+                movie = productIdString.get( r.get(1) ) ;
+            else {
+                movie = productIdIndex++ ;  // converted ProductId
+                productIdString.put( r.get(1), movie ) ;
+            }
 				
 			Double rating = Double.parseDouble(r.get(2)) ;
 			String type = r.get(3) ;

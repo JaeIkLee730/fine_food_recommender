@@ -163,6 +163,10 @@ class MovieRatingData    // class that has the info about
 		return productIdIndex ;
 	}
 
+
+
+	// show
+
 	private	void showMovieStat() {   
 		ApplicationFrame frame = new ApplicationFrame("Movie Stat.") ;
 
