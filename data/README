@@ -1,0 +1,10 @@
+# Training dataset
+ - # Users: 138443
+ - # Movies: 8787
+
+# Testing dataset
+ - # Users: 50
+ - # Movies: 2003
+ - Every movie in the testing dataset is also in the training dataset.
+
+
